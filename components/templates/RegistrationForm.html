@@ -1,0 +1,50 @@
+<form id="registrationForm">
+    <h1 v-message="renderTextContent"></h1>
+    <button c-click="addUser:users" type="button">Add New users</button>
+    <button c-click="addProduct:products" type="button">Add New products</button>
+    <p>Total User Count: <span v-user_count="renderTextContent" id="userCount"></span></p>
+    <p>Total Product Count: <span v-product_count="renderTextContent" id="productCount"></span></p>
+    <div>
+        <template l-users>
+            <p f-visible="isVisible">
+                <span v-name="renderItem"></span>
+                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;" 
+                        c-click="removeUser:users>itemRemoved" type="button">x</button>
+            </p>
+        </template>
+    </div>
+    <hr/>
+    <div>
+        <template l-products>
+            <p f-visible="isVisible">
+                <span v-name="renderItem"></span>
+                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;" 
+                        c-click="removeProduct:products>itemRemoved" type="button">x</button>
+            </p>
+        </template>
+    </div>
+    <div v-password="renderTextContent" id="formpassword"></div>
+    
+    <!-- Email Input -->
+    <input s-email="change|sanitizeEmail&validateEmail" type="text" id="email" placeholder="Email">
+    
+    <!-- Username Input -->
+    <input s-username="change|sanitizeUsername&validateUsername" type="text" id="username" placeholder="Username">
+    
+    <!-- Password Input -->
+    <div style="position: relative;">
+        <input s-password="change|validatePassword" type="password" id="password" placeholder="Password">
+        
+        <!-- Eye Icon to Toggle Password Visibility -->
+        <button c-click="togglePassword" type="button" id="togglePassword" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none;">
+            <span id="eyeIcon">👁️</span>
+        </button>
+    </div>
+    
+    <button c-click="validateForm@submitForm" type="button" id="submitBtn">Submit</button>
+    
+    <!-- Link to Login Page for Existing Users -->
+    <p><a href="/login" id="loginLink">Already have an account? Login here</a></p>
+
+    <div v-username="renderTextContent" id="formMessage"></div>
+</form>

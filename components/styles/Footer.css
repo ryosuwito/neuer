@@ -1,0 +1,66 @@
+footer {
+    background-color: rgb(72, 30, 68);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    position: relative;
+    border-top: 1px solid  #ccc;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 160px;  
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    margin-right: -20px;
+    margin-left: -20px;
+}
+
+footer .footer-content {
+    margin-bottom: 15px;
+}
+
+footer .brand {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+footer .links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+footer .links li {
+    display: inline;
+}
+
+footer .links li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+footer .links li a:hover {
+    color: #aaa;
+}
+
+footer .social-media {
+    display: flex;
+    gap: 15px;
+}
+
+footer .social-media a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: var(--footer-icon-color, #fff);
+    transition: transform 0.3s, color 0.3s;
+}
+
+footer .social-media a:hover {
+    color: var(--footer-icon-hover-color, #00bcd4);
+    transform: scale(1.1);
+}

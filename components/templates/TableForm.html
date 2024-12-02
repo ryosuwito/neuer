@@ -1,0 +1,27 @@
+<form id="tableForm">
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <template id="templateColumn" l-columns>
+                    <th v-name='renderItem'></th>
+                </template>
+            </tr>
+        </thead>
+        <tbody>
+            <template id="templateRow" l-rows>
+                <tr>
+                    <td><input s-name="change|validateName" type="text" placeholder="Enter Name"></td>
+                    <td><input s-quantity="change|validateQuantity&calculateTotal" type="number" placeholder="Enter Quantity"></td>
+                    <td><input s-price="change|validatePrice&calculateTotal" type="number" placeholder="Enter Price"></td>
+                    <td><span class="total">0</span></td>
+                    <td><button type="button" class="deleteBtn" c-click="deleteRow:rows">x</button></td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+    <button c-click="addRow:rows" type="button">Add Row</button>
+    <button c-click="addColumn:columns" type="button">Add Column</button>
+    <!-- Submit Button -->
+    <button c-click="saveData" type="button" id="submitBtn">Save</button>
+</form>

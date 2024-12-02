@@ -1,0 +1,29 @@
+{
+  "name": "neuer",
+  "version": "0.0.1",
+  "description": "HTMLElements with complication",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build && npx jsdoc -c jsdoc.config.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "just",
+    "another",
+    "js",
+    "library"
+  ],
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "author": "ryosuwito",
+  "license": "MIT",
+  "devDependencies": {
+    "jsdoc": "^4.0.4",
+    "minami": "^1.2.3",
+    "taffydb": "^2.7.3",
+    "terser": "^5.36.0",
+    "vite": "^5.4.11"
+  }
+}

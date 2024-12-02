@@ -1,0 +1,23 @@
+<article class="blog-post">
+    <div class="img-container">
+        <img id="postImage" src="" alt="Blog Post Image" c-click="openOverlay" v-image="renderImage" />
+    </div>
+    <header>
+        <h1 id="postTitle" v-title="renderTextContent"></h1>
+        <p class="meta" v-author_date="renderTextContent"></p>
+    </header>
+    <section class="content">
+        <p v-content="renderHtml"></p>
+    </section>
+    <footer>
+        <div class="cta">
+            <button c-click="readMore">Read More</button>
+        </div>
+    </footer>
+    <!-- Full-screen Image Overlay -->
+    <div id="imageOverlay" class="overlay" style="display: none;" c-click="closeOverlay">
+        <div class="overlay-content" c-click="stopEventPropagation">
+            <img id="overlayImage" src="" alt="Full-screen Image">
+        </div>
+    </div>
+</article>

@@ -1,0 +1,33 @@
+<!-- Search dropdown container -->
+<div id="search-dropdown-template" class="search-container">
+    <!-- Search input -->
+    <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Search..." 
+        s-search="change|filterResults" 
+        c-focus="openDropdown" 
+    />
+
+    <!-- Dropdown popup for search results -->
+    <div id="dropdown-popup" class="dropdown-popup">
+        <!-- Template for rendering search results -->
+        <template id="search-result-template" l-options>
+            <div class="dropdown-item" v-option="renderOption" c-click="selectResult"></div>
+        </template>
+    </div>
+
+    <select id="selectbox" style="display: none;">
+        <!-- Template for rendering files -->
+        <template id="options-template" l-options>
+            <option v-option="renderOption"></option>
+        </template>
+    </select>
+    <!-- Chips container for selected results -->
+    <div class="chips-container" id="chips-container" v-text="renderChips"></div>
+
+    <!-- Optional clear button for clearing selected results -->
+    <button class="clear-all" c-click="clearAll&closeDropdown">Clear All</button>
+    <!-- Optional clear button for clearing selected results -->
+    <button class="select-all" c-click="selectAll&openDropdown">Select All</button>
+</div>

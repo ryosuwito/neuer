@@ -1,0 +1,100 @@
+/* Base Styles */
+.blog-post {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 4px;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-light-color);
+    background-color: var(--paper-color);
+
+    /* Entry animation */
+    transform: translateY(10px);
+    opacity: 0;
+    animation: fadeInSlideUp 0.8s ease-out forwards;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Subtle hover shadow */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.blog-post:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); /* Subtle hover shadow */
+    transform: scale(1.02); /* Slight zoom effect */
+}
+
+/* Header Styles */
+.blog-post header h1 {
+    font-size: 2rem;
+    margin: 0 0 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    /* Subtle color change on hover */
+    transition: color 0.3s ease;
+}
+
+.blog-post header h1:hover {
+    color: var(--secondary-color);
+}
+
+/* Meta Information */
+.blog-post .meta {
+    font-size: 1rem;
+    color: var(--text-light-muted-color);
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.blog-post .meta:hover {
+    opacity: 1; /* Slight opacity increase on hover */
+}
+
+/* Content */
+.blog-post .content {
+    margin: 20px 0;
+    font-size: 1.1rem;
+
+    /* Fade-in paragraphs */
+    animation: fadeIn 1s ease forwards;
+}
+
+/* Call-to-Action */
+.blog-post .cta {
+    text-align: right;
+}
+
+.blog-post button {
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--background-color);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.02rem;
+}
+
+.blog-post button:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+/* Keyframes for animations */
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

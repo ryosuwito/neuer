@@ -1,0 +1,65 @@
+:host {
+    display: block;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: var(--paper-color)
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+input {
+    font-size: 16px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: var(--warning-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--warning-hover-color);
+}
+
+.deleteBtn {
+    color: red;
+    background-color: transparent;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: transparent;
+}

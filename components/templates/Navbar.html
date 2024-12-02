@@ -1,0 +1,23 @@
+<nav id="navbar">
+    <div class="brand" v-brand="renderTextContent">
+        MyBrand
+        <div class="navbar-extra">
+             <slot></slot>
+        </div>
+    </div>
+    <!-- Slot for rendering child components like SelectDropdown -->
+    <ul class="menu" id="menu">
+        <li><a c-click="navigateHome">Home</a></li>
+        <li><a c-click="navigateAbout">About</a></li>
+        <li><a c-click="navigateServices">Services</a></li>
+        <li><a c-click="navigateContact">Contact</a></li>
+        <li>
+            <button class="signin">
+                Sign In
+            </button>
+        </li>
+    </ul>
+    <button class="toggle-menu" c-click="toggleMenu">
+        ☰
+    </button>
+</nav>

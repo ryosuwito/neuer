@@ -1,0 +1,66 @@
+:host{
+    background-color: var(--paper-color)
+}
+
+.file-picker {
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+.file-picker.dragover {
+    border-color: #4caf50;
+}
+.drop-zone {
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--paper-color)
+}
+ul {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+}
+li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+}
+img {
+    max-width: 100%;
+    width: 350px;
+    height: auto;
+    object-fit: cover;
+    display: inline-block;
+    cursor: pointer;
+}
+.browse-btn {
+    color: var(--url-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Full-screen overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.overlay-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+.overlay img {
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,105 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px 20px;
+    background-color: rgb(72, 30, 68);
+    color: #fff;
+    position: relative;
+    height: 120px;
+    margin-bottom: 45px;
+    margin-right: -20px;
+    margin-left: -20px;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+nav .menu {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 20vw;
+}
+
+nav .menu li {
+    display: inline;
+}
+
+nav .menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+nav .menu li a:hover {
+    color: var(--hover-color, #00bcd4);
+}
+
+nav .toggle-menu {
+    display: none; /* Hidden by default (desktop view) */
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color, white);
+    cursor: pointer;
+}
+
+button {
+    font-size: 15px;
+    padding: 8px 14px;
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+}
+button:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+@media (max-width: 768px) {
+    nav .menu {
+        display: none; /* Hidden in mobile view until toggled */
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        background-color: var(--secondary-color, #333);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    nav .menu li {
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    nav .toggle-menu {
+        display: inline; /* Show menu button in mobile view */
+    }
+}
+
+.navbar-extra {
+    display: block;
+    width: 100%;
+    max-width: 40vw;
+    margin-top: 5px;
+    min-width: 450px;
+}

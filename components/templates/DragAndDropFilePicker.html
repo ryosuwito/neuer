@@ -1,0 +1,21 @@
+<div class="file-picker drop-zone" id="filePicker" c-dragover="handleDragOver" c-dragleave="handleDragLeave" c-drop="handleDrop&processFiles">
+    <ul id="fileList">
+        <!-- Template for rendering files -->
+        <template id="fileTemplate" l-files>
+            <li>
+                <span c-click="openOverlay" v-src="renderImageOrFileNames"></span>
+            </li>
+        </template>
+    </ul>
+    <div>
+        <p>Drag & Drop files here or <span class="browse-btn" c-click="triggerFileInput">Browse</span></p>
+        <input type="file" id="fileInput" style="display: none;" c-change="processFilesInput&processFiles">
+    </div>
+
+    <!-- Full-screen Image Overlay -->
+    <div id="imageOverlay" class="overlay" style="display: none;" c-click="closeOverlay">
+        <div class="overlay-content" c-click="stopEventPropagation">
+            <img id="overlayImage" src="" alt="Full-screen Image">
+        </div>
+    </div>
+</div>

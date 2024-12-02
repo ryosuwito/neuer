@@ -1,0 +1,14 @@
+<article class="blog-post">
+    <header>
+        <h1 id="postTitle" v-title="renderTextContent"></h1>
+        <p class="meta" v-author_date="renderTextContent"></p>
+    </header>
+    <section class="content">
+        <p v-content="renderHtml"></p>
+    </section>
+    <footer>
+        <div class="cta">
+            <button c-click="readMore">Read More</button>
+        </div>
+    </footer>
+</article>

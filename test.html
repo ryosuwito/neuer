@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        body {
+            --primary-color: rgb(138, 72, 131);
+            --primary-hover-color: rgb(90, 45, 85);
+            --secondary-color: #b0585a;
+            --secondary-hover-color: #7a3533;
+            --success-color: rgb(128, 131, 46);
+            --success-hover-color: rgb(92, 94, 44);
+            --warning-color: rgb(175, 117, 31);
+            --warning-hover-color: rgb(129, 87, 23);
+            --background-color: rgb(250, 236, 230);
+            --text-color: #2a1109ff;
+            --text-light-color: #492f23;
+            --text-muted-color: #5c5c5c;
+            --text-light-muted-color: #84726a;
+            --paper-color: rgb(253, 246, 242);
+            --url-color: rgb(49, 69, 250);
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color)
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            /* Sidebar and Main Content */
+            grid-template-rows: auto;
+            /* Dynamic rows based on content */
+            height: 100vh;
+            /* Full viewport height */
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: relative;
+            grid-column: 1 / 2;
+            /* Occupy the first column */
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar .brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar nav a:hover {
+            background-color: var(--primary-hover-color);
+        }
+
+        .sidebar .footer {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .content {
+            grid-column: 2 / 3;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .mixed-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Footer */
+        .content>div:last-child {
+            margin-top: 20px;
+        }
+    </style>
+    <script type="module" src='./dist/neuer.es.js'></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Override Hierarchy for Renderers and Handlers:
+            
+            // 1. **Instance Level** (Highest Priority):
+            //    - Defined directly in the `props` of the module instance during instantiation.
+            //    - Overrides all other levels (Class, Global Override, and Module Default).
+            //    - Example:
+            //        props: {
+            //            renderTextContent: (value, element) => {
+            //                element.textContent = `Instance-Level Override: ${value}`;
+            //            },
+            //        }
+
+            // 2. **Class Level** (Intermediate Priority):
+            //    - Defined in the prototype of the specific module class.
+            //    - Applies to all instances of that class unless overridden at the instance level.
+            //    - Example:
+            //        class BlogPostWithImage extends BlogPost {
+            //            renderTextContent(value, element) {
+            //                element.textContent = `Class-Level Override: ${value}`;
+            //            }
+            //        }
+
+            // 3. **Global Override** (Requires Explicit Injection via `moduleManager`):
+            //    - Injected globally into specific classes using `moduleManager.injectGlobalRenderer`.
+            //    - Overrides Module Default but not Instance or Class-Level definitions.
+            //    - Example:
+            //        moduleManager.registerRenderer('renderTextContent', (value, element) => {
+            //            element.textContent = `Global Override: ${value}`;
+            //        });
+            //        moduleManager.injectGlobalRenderer(BlogPostWithImage, ['renderTextContent']);
+
+            // 4. **Module Default** (Lowest Priority):
+            //    - A default renderer/handler provided by the module itself.
+            //    - Acts as a fallback if no other overrides exist.
+            //    - Example:
+            //        class Module extends HTMLElement {
+            //            renderTextContent(value, element) {
+            //                element.textContent = `Module Default: ${value}`;
+            //            }
+            //        }
+
+            const moduleData = [
+                {
+                    // Attaching a blog post module with an image
+                    targetId: 'blog-posts-container', // Target container ID
+                    moduleName: 'blog-post-with-image', // Custom element tag name
+                    props: {
+                        title: 'Lorem Ipsum Dolor Sit Amet',
+                        author: 'Jane Doe',
+                        date: 'November 24, 2024',
+                        content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
+                        image: 'https://picsum.photos/200',
+                        renderTextContent: (value, element) => {
+                            // Custom renderer for text content, overrides the default renderer
+                            element.textContent = "ahoy " + value;
+                        },
+                    },
+                },
+                {
+                    // Attaching a blog post module using a subclass with different behaviors
+                    targetId: 'blog-posts-container',
+                    moduleName: 'blog-post-with-image-v2', // Uses a subclass for extended features
+                    props: {
+                        title: 'Lorem Ipsum Dolor Sit Amet',
+                        author: 'Jane Doe',
+                        date: 'November 24, 2024',
+                        content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
+                        image: 'https://picsum.photos/200',
+                        readMore: (event, element) => {
+                            // Uses a global handler defined in the moduleManager
+                            moduleManager.getHandler('readMore')(event, element);
+                        },
+                    },
+                },
+                {
+                    // Another blog post module without custom renderers or handlers
+                    targetId: 'blog-posts-container',
+                    moduleName: 'blog-post-with-image',
+                    props: {
+                        title: 'Lorem Ipsum Dolor Sit Amet',
+                        author: 'Kemong',
+                        date: 'December 1 2024',
+                        content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
+                        image: 'https://picsum.photos/200',
+                    },
+                },
+                {
+                    // A blog post module with a modified readMore handler
+                    targetId: 'blog-posts-container',
+                    moduleName: 'blog-post-with-image',
+                    props: {
+                        title: 'Lorem Ipsum Dolor Sit Amet',
+                        author: 'Kemong',
+                        date: 'December 1 2024',
+                        content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
+                        image: 'https://picsum.photos/200',
+                        readMore: (event, element) => {
+                            alert('Read more modified');
+                        },
+                    },
+                },
+                {
+                    // Attaching a custom navbar module with a dropdown child
+                    targetId: 'nav-bar',
+                    moduleName: 'custom-navbar',
+                    props: {}, // No additional properties for the navbar
+                    children: [
+                        {
+                            moduleName: 'select-dropdown', // Dropdown child module
+                            props: {
+                                options: JSON.stringify(["Option 1", "Option 2", "Option 3"]),
+                                multiple: 'true', // Allows multiple selections
+                                clearable: 'true', // Adds a clear button
+                                selectResult: (value, element, context) => {
+                                    // Custom handler for dropdown item selection
+                                    console.log(value, element, context);
+                                    alert(context.item);
+                                },
+                            },
+                        },
+                    ],
+                },
+                {
+                    // A search bar module containing a dropdown and a drag-and-drop file picker
+                    targetId: 'search-bar',
+                    moduleName: 'select-dropdown',
+                    props: {
+                        options: JSON.stringify(["Option 1", "Option 2", "Option 3"]),
+                        multiple: 'true',
+                        clearable: 'true',
+                    },
+                    children: [
+                        {
+                            moduleName: 'drag-and-drop-file-picker', // Drag-and-drop child module
+                            props: {
+                                multiple: true, // Allows multiple file uploads
+                                'allowed-types': "image/png,image/jpeg", // Restrict file types
+                                'max-size': "100000", // Maximum file size in bytes
+                            },
+                        },
+                    ],
+                },
+            ];
+
+
+            // Define a new custom element by extending an existing one
+            class BlogPostWithImageV2 extends BlogPostWithImage {
+                // Override the renderTextContent renderer for this specific class
+                renderTextContent(value, element) {
+                    element.textContent = `Redefined: ${value}`;
+                }
+
+                // Override the renderImage renderer for this specific class
+                renderImage(value, element) {
+                    element.src = value;
+                }
+            }
+
+            // Register the custom element to the browser
+            customElements.define('blog-post-with-image-v2', BlogPostWithImageV2);
+
+            /**
+             * Example: Registering a global renderer
+             * The `renderTextContent` renderer will be available globally for any module
+             * that supports dynamic rendering.
+             */
+            moduleManager.registerRenderer("renderTextContent", (value, element) => {
+                element.textContent = `Global Overridden: ${value}`;
+            });
+
+            /**
+             * Example: Registering a global handler
+             * The `readMore` handler can be bound to any event in a module, providing
+             * a global logic for a "read more" action.
+             */
+            moduleManager.registerHandler("readMore", (event, element, state) => {
+                console.log("Global click handler:", { event, element, state });
+            });
+
+            /**
+             * Example: Registering a specific renderer for SelectDropdown
+             * The `renderOption` renderer modifies how dropdown options are rendered.
+             */
+            moduleManager.registerRenderer("renderOption", (value, element, context) => {
+                element.innerHTML = 'ahoy ' + value.item;
+                element.setAttribute('value', 'ahoy ' + value.item);
+            });
+
+            /**
+             * Example: Inject global renderers into specific classes
+             * This allows `renderTextContent` to be accessible dynamically in the
+             * BlogPostWithImage class and its instances.
+             */
+            moduleManager.injectGlobalRenderer(BlogPostWithImage, ['renderTextContent']);
+
+            /**
+             * Example: Inject a global renderer for SelectDropdown class
+             * Makes `renderOption` available as a dynamic renderer in the class and its instances.
+             */
+            moduleManager.injectGlobalRenderer(SelectDropdown, ['renderOption']);
+
+            /**
+             * Example: Override a renderer directly on a prototype
+             * This applies only to the specific BlogPost class and its instances,
+             * overriding any global logic for `renderTextContent`.
+             */
+            BlogPost.prototype.renderTextContent = (value, element) => {
+                element.textContent = `Overridden: ${value}`;
+            };
+
+            try {
+                /**
+                 * Example: Dynamically attaching modules with different configurations
+                 * Each module is initialized with its state, and global renderers/handlers
+                 * are automatically accessible.
+                 */
+                const modules = await Promise.all(
+                    moduleData.map(async ({ targetId, moduleName, props, children }) => {
+                        // Attach the module to a target container and return its instance
+                        const module = await moduleManager.attachModule(targetId, moduleName, props, children);
+                        console.log(`Module ${module.name} initialized with state:`, module?.getState());
+                        return module.name;
+                    })
+                );
+
+                console.log('All modules initialized:', modules);
+            } catch (error) {
+                console.error('Error attaching modules:', error);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand">MyWebsite</div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+            </nav>
+            <div class="footer">
+                &copy; 2024 MyWebsite. All rights reserved.
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Navbar -->
+            <div id="nav-bar"></div>
+            <div id="search-bar"></div>
+            <!-- Blog Posts -->
+            <div id="blog-posts-container" class="blog-posts">
+            </div>
+            <div>
+                <div style="padding: 10px;">
+                    <div style="padding: 10px;">
+                        <login-form action="/submit-url" method="POST" disable-submit="true">
+                            <div style="padding-bottom: 10px;">
+                                <drag-and-drop-file-picker data-multiple data-allowed-types="image/png,image/jpeg"
+                                    data-max-size="10000000">
+                                </drag-and-drop-file-picker>
+                            </div>
+                        </login-form>
+                    </div>
+                    <div style="padding: 10px;">
+                        <registration-form action="/another-url" method="POST" />
+                    </div>
+
+                    <!-- Mixed Content -->
+                    <div class="mixed-content" style="gap: 0;">
+                        <div style="padding: 5px;">
+                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                                data-date="November 23, 2024"
+                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
+                            </blog-post>
+                        </div>
+                        <div style="padding: 5px;">
+                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                                data-date="November 23, 2024"
+                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
+                            </blog-post>
+                        </div>
+                        <div style="padding: 5px;">
+                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                                data-date="November 23, 2024"
+                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
+                            </blog-post>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mixed Content -->
+            <div class="mixed-content">
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+                <div style="padding: 10px;">
+                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
+                        data-date="November 24, 2024"
+                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                        data-image="https://picsum.photos/200">
+                    </blog-post-with-image>
+                </div>
+            </div>
+
+            <!-- Table Form -->
+            <div style="margin-top: 10px; padding: 10px;">
+                <table-form action="/submit-table" method="POST" disable-submit="true" />
+            </div>
+            <!-- Footer -->
+            <div>
+                <my-footer />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

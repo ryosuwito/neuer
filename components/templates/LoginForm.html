@@ -1,0 +1,14 @@
+<form id="loginForm">
+    <h1 v-message="renderTextContent"></h1>
+    <slot></slot>
+    <input s-email="change|sanitizeEmail&validateEmail" type="text" id="email" placeholder="Email">
+    <div style="position: relative;">
+        <input s-password="change|validatePassword" type="password" id="password" placeholder="Password">
+        <button c-click="togglePassword" type="button" id="togglePassword" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none;">
+            <span id="eyeIcon">👁️</span>
+        </button>
+    </div>
+    <button c-click="validateForm@submitForm" type="button" id="submitBtn">Login</button>
+    <p><a href="/register" id="registerLink">Don't have an account? Register here</a></p>
+    <div v-username="renderTextContent" id="formMessage"></div>
+</form>
