@@ -256,6 +256,98 @@ I’m not here to waste your time with fluff. You know how to use it. Here's the
         });
     });
 </script>
-```
 
 Neuer’s here. It’s about time you figured out what that means. **Now get out there and build something that actually works.**
+
+```
+### **QUESTIONS? PLEASE, WE'RE BUSY BEING AWESOME.**  
+If you’ve got questions about Neuer, take a deep breath and **read the README again.** Seriously, we’ve covered it all.  
+
+Still stuck? Okay, fine:  
+- Open an issue, but keep it **polite**. Remember, you’re talking to the **framework that assembles the web.**  
+- If your question starts with “Can Neuer do...” the answer is probably **yes**, so just try it first.  
+
+---
+
+### **ISSUES: NOT OUR PROBLEM, BUT FINE.**  
+If you find a bug (unlikely, but sure), you can file an issue. But let’s set some ground rules:  
+- Don’t open an issue unless you’re **100% sure it’s not your code**. We’re not here to debug your spaghetti.  
+- If it’s a legit bug, describe it well. No vague “it doesn’t work” nonsense—we’re not mind readers.  
+
+And remember, every issue slows us down from making Neuer even cooler. So... think twice, maybe?  
+
+---
+
+### **STAY IN TOUCH: BUT DON’T BE CLINGY.**  
+Want to stay updated on Neuer’s greatness?  
+No, we don’t have a newsletter. **Neuer doesn’t do spam.**  
+
+---
+
+### **CONTRIBUTION: BECAUSE YOU CAN’T RESIST.**  
+Feeling inspired? Great! We **welcome contributions**, but only if:  
+1. Your code is **cleaner than your desk** (low bar, we know).  
+2. You bring fresh ideas, not just “can you make it work like [insert legacy framework]?”  
+3. You’re ready to handle feedback like a champ, because we don’t sugarcoat things.  
+
+Fork it. PR it. **Blow our minds.**  
+
+---
+
+### **SPONSORS: SHOUTOUT TO MY MOM.**  
+Neuer is powered by:  
+- **Our brains**, fueled by caffeine and sarcasm.  
+- **Our moms**, who still think we “do something with computers.”  
+
+Want to sponsor us? Sure!  
+- Send snacks, coffee, or a heartfelt thank-you note.  
+- Money’s cool too, but honestly, we’re not in it for the cash—we’re here to **change the web**.  
+
+---
+
+### **LICENSE: THE "NEUER KNOWS IT’S BETTER" LICENSE**  
+#### **COPYRIGHT 2024, THE NEUER TEAM**
+
+---
+
+#### **PERMISSION GRANTED (LIKE, WHATEVER, DUDE)**  
+Permission is granted, free of charge, to any person obtaining a copy of this software (the “Software”), to do **pretty much whatever you want**:  
+- Run it.  
+- Modify it.  
+- Build something ridiculous with it (seriously, go wild).  
+- Rename it “Framework McAwesome” and take all the credit. **But don’t lie to yourself—we know who’s doing the heavy lifting here.**  
+
+**Neuer doesn’t care.** Just don’t do anything illegal, evil, or, like, catastrophically dumb. Deal? Cool.  
+
+---
+
+#### **THE COMMANDMENTS (BECAUSE NEUER IS A RELIGION NOW)**  
+
+1. **Thou Shalt Acknowledge Neuer’s Greatness**  
+   - Publicly admit that Neuer made your life easier.  
+     - Slack? Tweet? Write it in the sky with a plane—whatever works for you.  
+   - If you’re ditching React, Vue, or Angular, let your team know you’ve upgraded to **the future**.  
+
+2. **Thou Shalt Not Screw It Up**  
+   - If you modify Neuer, **keep it clean**. Don’t turn it into another unmaintainable horror story.  
+   - If you break it, don’t come crying. You’re not five, and this isn’t daycare.  
+
+3. **Thou Shalt Flaunt Thy Awesomeness**  
+   - If you build something cool, **brag about it**. Share it everywhere, even that group chat you muted two years ago.  
+   - Didn’t build something cool? That’s on **you**, pal. Neuer gave you greatness, and you squandered it. Shame.
+
+---
+
+#### **DISCLAIMERS (READ THIS IF YOU HAVE A LAWYER)**  
+
+1. **Neuer takes no responsibility if you**:  
+   - Realize your old framework was garbage and start questioning your life choices.  
+   - Blow everyone’s minds at work and get promoted too quickly to handle the pressure.  
+   - Lose hours admiring how smooth your app runs now. (Hey, productivity’s your problem, not ours.)  
+
+2. **Neuer won’t help if you**:  
+   - Use it to build something world-ending. If you make a doomsday app, **that’s on you, Dr. Evil.**  
+   - Complain that “it doesn’t work like my old framework.” **Buddy, we’re not React. We’re better. Adapt.**  
+
+3. **THE SOFTWARE IS PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.**  
+   - If it breaks, it’s either your fault or your karma. Either way, figure it out.
