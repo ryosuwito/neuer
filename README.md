@@ -1,4 +1,4 @@
-# Neuer: The Web Dev Revolution You Didn't Know You Needed (But Desperately Did)
+# Neuer – The Framework That Assembles the Web."
 
 ### **THE FUTURE DOESN’T ASK FOR PERMISSION, BRO. IT JUST HAPPENS.**
 
