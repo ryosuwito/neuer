@@ -257,9 +257,12 @@ I’m not here to waste your time with fluff. You know how to use it. Here's the
     });
 </script>
 
+```
+
 Neuer’s here. It’s about time you figured out what that means. **Now get out there and build something that actually works.**
 
-```
+---
+
 ### **QUESTIONS? PLEASE, WE'RE BUSY BEING AWESOME.**  
 If you’ve got questions about Neuer, take a deep breath and **read the README again.** Seriously, we’ve covered it all.  
 
