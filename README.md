@@ -7,10 +7,7 @@ Alright, here it is—**Neuer** is the thing you didn’t know you were **waitin
 ---
 
 ### **ARE YOU READY TO WAKE UP, OR DO YOU WANT TO KEEP CRAWLING IN THE DARK?**
-
-Let’s be real: if you’re still on the **JSX struggle bus**, still choking on props like they're some sort of developer vitamin, then congratulations, you're part of the problem. How long are you gonna keep **pretending** like you're okay with frameworks that make you do cartwheels just to change a button’s color? Time’s up. It’s over. Neuer is **here**, and it's coming for your sad, bloated code.
-
-You want a blog post? **You got it**. Clean. Fast. **Beautiful**. No, seriously, you’re gonna love how stupidly simple this is:
+You want to create a **blog post**? Boom. Clean. Fast. Beautiful. And let’s show you just how stupidly simple it is:
 
 ```html
 <article class="blog-post">
@@ -45,6 +42,13 @@ Yes, **that’s it**. It’s that simple. No fifty-billion hooks. No magic incan
 ### **HOW DOES NEUER DO IT? LIKE A BOSS.**
 
 You’re probably sitting there thinking, “Yeah, but how does this magic work?” So I’m gonna spell it out for you in words you can understand. **Neuer** handles everything. **Everything**. State, events, rendering—**it’s automatic**. No framework babysitting, no thousand-step tutorials. It just works.
+
+- Modular Magic: Build less. Assemble more.
+- Infinite Overrides: Class? Instance? Global? You’re the boss.
+- Dynamic Assembly: No rebuilds. No redeploys. It’s all live.
+- Declarative Simplicity: Write HTML, let Neuer do the heavy lifting.
+- Hot-Swappable Modules: Drop them in. Take them out. No drama.
+- Global, Agnostic Power: Works anywhere. Plays nice with anything.
 
 When you build with Neuer, you’re not just writing code—you’re **orchestrating** greatness. You're the conductor of your own web symphony. No framework is holding your hand. Neuer is not just a tool—it’s a **mindset**.
 
