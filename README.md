@@ -1,8 +1,9 @@
 # Neuer – The Framework That Assembles the Web
 
 ### **THE FUTURE DOESN’T ASK FOR PERMISSION, BRO. IT JUST HAPPENS.**
+Alright, listen up: Neuer isn’t just a framework—it’s a statement. It’s the thing you didn’t know you were waiting for, because honestly, you’ve been lied to. If you think React, Vue, or Angular are "cutting-edge," it’s time to wake up. You’ve been sold the illusion that these bloated, over-engineered excuses for frameworks are somehow "best practice." They’re not. They’re anchors—dragging you into the abyss of complexity.
 
-Alright, here it is—**Neuer** is the thing you didn’t know you were **waiting** for, because frankly, you’ve been **lied to** for far too long. If you’re still pretending like React, Vue, or Angular are "cutting-edge," you’re living in a fantasy land. You’ve been sold the **illusion** that these bloated, ancient, excuse-for-frameworks are somehow “best practice.” **They're not**. They're an anchor, dragging you down into the abyss of complexity. Wake up. **Neuer** is your lifeline.
+Neuer is the **anti-framework** framework, and it’s here to save you from framework hell.
 
 ---
 
