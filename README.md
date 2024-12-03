@@ -1,4 +1,4 @@
-# Neuer – The Framework That Assembles the Web."
+# Neuer – The Framework That Assembles the Web
 
 ### **THE FUTURE DOESN’T ASK FOR PERMISSION, BRO. IT JUST HAPPENS.**
 
