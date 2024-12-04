@@ -6,6 +6,7 @@ import { moduleManager } from './ModuleManager.js';
 
 export class Module extends HTMLElement {
     state;
+    props;
     #parser;
     #initialized = false;
     #renderers;
@@ -24,14 +25,9 @@ export class Module extends HTMLElement {
             throw new Error("Module is abstract and cannot be instantiated directly.");
         }
 
-        // Ensure the derived class implements `initializeModule`
-        if (typeof this.initializeModule !== 'function') {
-            throw new Error(
-                `Class '${this.constructor.name}' must implement 'initializeModule()'.`
-            );
-        }
 
-        this.name = `${config.name}-${this.#generateRandomString(10)}`;
+        this.name = `${config.name}- ${Date.now()}-${this.#generateRandomString(10)}`;
+        this.state = new ModuleState({});
         this.attachShadow({ mode: 'open' });
         this.#renderers = new Proxy(
             {}, // Base object
@@ -85,18 +81,37 @@ export class Module extends HTMLElement {
         }
 
         try {
-            this.setAttribute(`data-key`, this.name);
-            this.shadowRoot.innerHTML = this.#assemble(htmlContent, cssContent);
-
-            this.state = new ModuleState(initialState || {});
-            this.control = new ModuleControl(this.state);
-            this.view = new ModuleView(this.state);
-            this.renderItem = this.view.renderItem;
-            this.#initialized = true;
             const event = new CustomEvent('moduleReady', {
                 detail: { key: this.name },
             },);
+            const observedAttributes = this.constructor.observedAttributes || [];
+            const defaultState = observedAttributes.reduce((state, attr) => {
+                let stateKey = attr.startsWith('data-') ? attr.slice(5) : attr;
+                stateKey = stateKey.replace(/-([a-z])/g, (match, p1) => p1.toUpperCase());
+                let attrValue = this.getAttribute(attr);
+                try {
+                    attrValue = JSON.parse(attrValue);
+                } catch (e) {
+                    // Not JSON, keep as string
+                }
+                state[stateKey] = attrValue;
+                return state;
+            }, {});
+            const finalState = { ...initialState, ...defaultState };
+
+            this.shadowRoot.innerHTML = this.#assemble(htmlContent, cssContent);
+            this.control = new ModuleControl(this.state);
+            this.view = new ModuleView(this.state);
+
+            this.setAttribute(`data-key`, this.name);
+            this.initializeFromDOM();
+
+            Object.keys(finalState).forEach(key => {
+                this.setState(key, finalState[key]);
+            });
+            this.props = { ...this.getState() }
             this.dispatchEvent(event);
+            this.#initialized = true;
         } catch (error) {
             console.error(`Error initializing module '${this.name}':`, error);
         }
@@ -135,7 +150,22 @@ export class Module extends HTMLElement {
      * @param {string} newValue - The new value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`Attribute '${name}' on '${this.name}' changed from '${oldValue}' to '${newValue}'.`);
+        if (oldValue !== newValue) {
+            let stateKey = name.startsWith('data-') ? name.slice(5) : name;
+            stateKey = stateKey.replace(/-([a-z])/g, (match, p1) => p1.toUpperCase());
+            let parsedValue = newValue;
+            if (newValue && newValue.includes(',') && !newValue.trim().startsWith('[')) {
+                // If it's comma-separated but not JSON, keep as string
+                parsedValue = newValue;
+            } else {
+                try {
+                    parsedValue = JSON.parse(newValue);
+                } catch (e) {
+                    // Not JSON, keep as string
+                }
+            }
+            this.setState(stateKey, parsedValue);
+        }
     }
 
     /**
@@ -157,8 +187,8 @@ export class Module extends HTMLElement {
      * Gets the current state of the module.
      * @returns {Proxy} The current reactive state object.
      */
-    getState() {
-        return this.state.getState();
+    getState(key = null) {
+        return key ? this.state.getState()[key] : this.state.getState()
     }
 
     /**
@@ -179,6 +209,32 @@ export class Module extends HTMLElement {
      */
     bindState(key, element) {
         this.view.bindRenderToElement(key, element);
+    }
+
+    /**
+     * Resets the module's state to its initial configuration.
+     * If keys are provided, only those keys are reset (partial reset).
+     * If no keys are provided, the entire state is reset (total reset).
+     * @param {Array<string>} keys - Optional array of state keys to reset.
+     */
+    resetState(keys = null) {
+        if (!this.props) {
+            console.warn(`Module '${this.name}' has no initial props to reset.`);
+            return;
+        }
+
+        const keysToReset = keys ? keys.filter(key => key in this.props) : Object.keys(this.props);
+
+        if (keysToReset.length === 0) {
+            console.warn(`Module '${this.name}': No valid keys provided for reset.`);
+            return;
+        }
+
+        keysToReset.forEach(key => {
+            this.setState(key, this.props[key]);
+        });
+
+        console.log(`Module '${this.name}' state has been ${keys ? "partially" : "fully"} reset.`);
     }
 
     /**

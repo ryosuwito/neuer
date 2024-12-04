@@ -16,7 +16,7 @@ export class LoginForm extends BaseForm {
      */
     constructor() {
         const config = {
-            name: `loginForm-${Date.now()}`
+            name: `loginForm`
         };
         super(config);
     }
@@ -41,9 +41,7 @@ export class LoginForm extends BaseForm {
             const cssContent = __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();  // Initialize the form's DOM elements
-            super.initializeModule();  // Initialize the login form-specific logic
-            this.initializeModule();  // Initialize form-specific event handlers and behaviors
+            this.initializeModule();
         } catch (error) {
             console.error('Error loading form content:', error);
         }

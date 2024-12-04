@@ -93,19 +93,83 @@
         .mixed-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(200px, auto));
             gap: 20px;
+        }
+
+        #suggested-container {
+            margin: 10px 0;
         }
 
         /* Footer */
         .content>div:last-child {
             margin-top: 20px;
         }
+
+        /* Container for the main flex row with two columns (1/3 and 2/3) */
+        .flex-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* First Column - Login and Registration Form */
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* First Column - Login and Registration Form */
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        /* Make a flex column take up full height */
+        .full-height-column {
+            flex: 1;
+        }
+
+        /* Full-width utility */
+        .full-width {
+            width: 100%;
+        }
+
+        /* Make a container fill the full height */
+        .full-height {
+            height: auto;
+        }
+
+        /* Gap utility for children elements */
+        .gap-10 {
+            gap: 10px;
+        }
+
+        /* Login form and Registration form container */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+
+        /* Container for drag and drop picker inside login form */
+        .drag-drop-container {
+            flex-grow: 1;
+            padding-bottom: 10px;
+        }
+
+        /* Blog post container for consistent layout and spacing */
+        .blog-post-container {
+            height: auto;
+            margin-bottom: 10px;
+        }
     </style>
     <script type="module" src='./dist/neuer.es.js'></script>
     <script defer>
         document.addEventListener('DOMContentLoaded', async () => {
             // Override Hierarchy for Renderers and Handlers:
-            
+
             // 1. **Instance Level** (Highest Priority):
             //    - Defined directly in the `props` of the module instance during instantiation.
             //    - Overrides all other levels (Class, Global Override, and Module Default).
@@ -144,7 +208,21 @@
             //                element.textContent = `Module Default: ${value}`;
             //            }
             //        }
-
+            const randomNum = () => { return Math.floor(Math.random() * 43) + 1 };
+            const generateRandomData = () => {
+                return {
+                    // Another blog post module without custom renderers or handlers
+                    targetId: 'suggested-container',
+                    moduleName: 'blog-post-with-image',
+                    props: {
+                        title: 'Lorem Ipsum Dolor Sit Amet',
+                        author: 'Kemong',
+                        date: 'December 1 2024',
+                        content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
+                        image: `./assets/img_${randomNum()}.png`,
+                    },
+                }
+            };
             const moduleData = [
                 {
                     // Attaching a blog post module with an image
@@ -155,7 +233,7 @@
                         author: 'Jane Doe',
                         date: 'November 24, 2024',
                         content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
-                        image: 'https://picsum.photos/200',
+                        image: `./assets/img_${randomNum()}.png`,
                         renderTextContent: (value, element) => {
                             // Custom renderer for text content, overrides the default renderer
                             element.textContent = "ahoy " + value;
@@ -171,7 +249,7 @@
                         author: 'Jane Doe',
                         date: 'November 24, 2024',
                         content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
-                        image: 'https://picsum.photos/200',
+                        image: `./assets/img_${randomNum()}.png`,
                         readMore: (event, element) => {
                             // Uses a global handler defined in the moduleManager
                             moduleManager.getHandler('readMore')(event, element);
@@ -187,7 +265,7 @@
                         author: 'Kemong',
                         date: 'December 1 2024',
                         content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
-                        image: 'https://picsum.photos/200',
+                        image: `./assets/img_${randomNum()}.png`,
                     },
                 },
                 {
@@ -199,7 +277,7 @@
                         author: 'Kemong',
                         date: 'December 1 2024',
                         content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
-                        image: 'https://picsum.photos/200',
+                        image: `./assets/img_${randomNum()}.png`,
                         readMore: (event, element) => {
                             alert('Read more modified');
                         },
@@ -234,6 +312,21 @@
                         options: JSON.stringify(["Option 1", "Option 2", "Option 3"]),
                         multiple: 'true',
                         clearable: 'true',
+                        connectedCallback: function () {
+                            // Call the original connectedCallback dynamically
+                            const originalConnectedCallback = this.connectedCallback.bind(this);
+
+                            // Call the original function
+                            originalConnectedCallback()
+                                .then(() => {
+                                    // Add custom logic here
+                                    console.log('Custom logic executed after the original connectedCallback');
+                                    // const customElement = document.createElement('div');
+                                    // customElement.textContent = 'Custom content added dynamically!';
+                                    // this.shadowRoot.appendChild(customElement);
+                                })
+                                .catch((error) => console.error('Error in connectedCallback override:', error));
+                        }
                     },
                     children: [
                         {
@@ -328,7 +421,11 @@
                         return module.name;
                     })
                 );
-
+                for (let i = 0; i < 14; i++) {
+                    const { targetId, moduleName, props } = generateRandomData();
+                    const module = await moduleManager.attachModule(targetId, moduleName, props);
+                    console.log(`Module ${module.name} initialized with state:`, module?.getState());
+                }
                 console.log('All modules initialized:', modules);
             } catch (error) {
                 console.error('Error attaching modules:', error);
@@ -348,108 +445,93 @@
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
             </nav>
+
             <div class="footer">
                 &copy; 2024 MyWebsite. All rights reserved.
             </div>
         </div>
-
         <!-- Main Content -->
         <div class="content">
             <!-- Navbar -->
             <div id="nav-bar"></div>
             <div id="search-bar"></div>
+
+            <div id="suggested-container" class="mixed-content">
+            </div>
             <!-- Blog Posts -->
             <div id="blog-posts-container" class="blog-posts">
             </div>
-            <div>
-                <div style="padding: 10px;">
-                    <div style="padding: 10px;">
-                        <login-form action="/submit-url" method="POST" disable-submit="true">
-                            <div style="padding-bottom: 10px;">
-                                <drag-and-drop-file-picker data-multiple data-allowed-types="image/png,image/jpeg"
-                                    data-max-size="10000000">
-                                </drag-and-drop-file-picker>
-                            </div>
-                        </login-form>
-                    </div>
-                    <div style="padding: 10px;">
-                        <registration-form action="/another-url" method="POST" />
-                    </div>
+            <div class="flex-container" style="gap: 10px;">
+                <!-- First Column - Login and Registration Form -->
+                <div class="flex-column full-height-column" style="flex: 1 1 25.33%;">
+                    <!-- Login Form -->
+                    <login-form action="/submit-url" method="POST" disable-submit="true" class="form-container">
+                        <div class="drag-drop-container">
+                            <drag-and-drop-file-picker data-multiple data-allowed-types="image/png,image/jpeg"
+                                data-max-size="10000000" class="full-height">
+                            </drag-and-drop-file-picker>
+                        </div>
+                    </login-form>
+                    <!-- Registration Form -->
+                    <registration-form action="/another-url" method="POST" class="form-container" />
+                </div>
 
-                    <!-- Mixed Content -->
-                    <div class="mixed-content" style="gap: 0;">
-                        <div style="padding: 5px;">
-                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
-                                data-date="November 23, 2024"
-                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
-                            </blog-post>
-                        </div>
-                        <div style="padding: 5px;">
-                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
-                                data-date="November 23, 2024"
-                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
-                            </blog-post>
-                        </div>
-                        <div style="padding: 5px;">
-                            <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
-                                data-date="November 23, 2024"
-                                data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>">
-                            </blog-post>
-                        </div>
+                <!-- Second Column - Table Form and Blog Posts, occupying 2/3 of the container -->
+                <div class="flex-column full-height-column gap-10" style="flex: 2 1 74.67%;">
+                    <!-- Table Form -->
+                    <div class="full-width">
+                        <table-form action="/submit-table" method="POST" disable-submit="true" class="full-height" />
+                    </div>
+                    <div class="flex-row full-width">
+                        <!-- Blog Posts -->
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                    </div>
+                    <div class="flex-row full-width">
+                        <!-- Blog Posts -->
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
+                        <blog-post data-title="Lorem Ipsum Dolor Sit Amet" data-author="John Doe"
+                            data-date="November 23, 2024"
+                            data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
+                            class="blog-post-container">
+                        </blog-post>
                     </div>
                 </div>
             </div>
 
-            <!-- Mixed Content -->
-            <div class="mixed-content">
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-                <div style="padding: 10px;">
-                    <blog-post-with-image data-title="Lorem Ipsum Dolor Sit Amet" data-author="Jane Doe"
-                        data-date="November 24, 2024"
-                        data-content="<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>"
-                        data-image="https://picsum.photos/200">
-                    </blog-post-with-image>
-                </div>
-            </div>
 
-            <!-- Table Form -->
-            <div style="margin-top: 10px; padding: 10px;">
-                <table-form action="/submit-table" method="POST" disable-submit="true" />
-            </div>
             <!-- Footer -->
             <div>
                 <my-footer />

@@ -16,7 +16,7 @@ export class BlogPostWithImage extends BlogPost {
      */
     constructor() {
         const config = {
-            name: `blog-post-with-image-${Date.now()}`
+            name: `blog-post-with-image`
         };
         super(config);
     }
@@ -30,22 +30,6 @@ export class BlogPostWithImage extends BlogPost {
      */
     static get observedAttributes() {
         return [...super.observedAttributes, 'data-image'];
-    }
-
-    /**
-     * Callback method invoked when an observed attribute changes.
-     * Updates the component's internal state based on the changed attributes.
-     * 
-     * @param {string} name Name of the changed attribute.
-     * @param {string|null} oldValue Previous value of the attribute.
-     * @param {string|null} newValue New value of the attribute.
-     */
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'data-image') {
-            this.image = newValue;
-        } else {
-            super.attributeChangedCallback(name, oldValue, newValue);
-        }
     }
 
     /**
@@ -68,26 +52,10 @@ export class BlogPostWithImage extends BlogPost {
             const cssContent = __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();  // Initialize the module's DOM elements
-            super.initializeModule();  // Set up module-specific behavior
-            this.initializeModule();  // Set up additional functionality for BlogPostWithImage
+            this.initializeModule();
         } catch (error) {
             console.error("Error loading blog post with image content:", error);
         }
-    }
-
-    /**
-     * Initializes the blog post with image module, including methods for rendering the image,
-     * opening the overlay, and closing the overlay.
-     * 
-     * @returns {void}
-     */
-    initializeModule() {
-        // Dynamically set the blog post content including the image
-        this.state.setState('title', this.getAttribute('data-title'));
-        this.state.setState('author_date', `${this.getAttribute('data-author')} - ${this.getAttribute('data-date')}`);
-        this.state.setState('content', this.getAttribute('data-content'));
-        this.state.setState('image', this.getAttribute('data-image'));
     }
 
     /**

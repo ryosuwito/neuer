@@ -3,7 +3,7 @@ import { Module } from '../module/Module.js';
 export class SelectDropdown extends Module {
     constructor() {
         // Config with default name
-        const config = { name: 'selectdropdown-' + Date.now() };
+        const config = { name: 'selectdropdown' };
         super(config);
     }
 
@@ -15,7 +15,15 @@ export class SelectDropdown extends Module {
     static get observedAttributes() {
         return ['data-options', 'data-multiple', 'data-clearable'];
     }
-    
+
+    /**
+     * Callback method invoked when an observed attribute changes.
+     * Updates the component's internal state based on the changed attributes.
+     * 
+     * @param {string} name Name of the changed attribute.
+     * @param {string|null} oldValue Previous value of the attribute.
+     * @param {string|null} newValue New value of the attribute.
+     */
     async connectedCallback() {
         const initialState = {
             options : [],
@@ -23,11 +31,10 @@ export class SelectDropdown extends Module {
             isClearable: false
         }
         try {
-            const htmlContent = __HTML__;
-            const cssContent = __CSS__;
+            const htmlContent = this.props?.customHtml || __HTML__;
+            const cssContent = this.props?.customCss || __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();
             this.initializeModule()
             document.addEventListener('click', this.#handleClickOutside.bind(this))
         } catch (error) {
@@ -43,16 +50,16 @@ export class SelectDropdown extends Module {
      * @param {string|null} newValue - The new value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case 'data-options':
-                this.setState('options', newValue ? JSON.parse(newValue) : []);
-                break;
-            case 'data-multiple':
-                this.setState('isMultiple', newValue)
-                break;
-            case 'data-clearable':
-                this.setState('isClearable', newValue)
-                break;
+        if (name === 'data-options' && oldValue !== newValue) {
+            try {
+                const parsedValue = newValue ? JSON.parse(newValue) : [];
+                this.setState('options', parsedValue);
+            } catch (error) {
+                console.error(`Failed to parse 'data-options': ${error.message}`);
+                return;
+            }
+        } else {
+            super.attributeChangedCallback(name, oldValue, newValue);
         }
     }
 
@@ -91,9 +98,6 @@ export class SelectDropdown extends Module {
     }
 
     initializeModule() {
-        this.setState('options',  this.getAttribute('data-options') ? JSON.parse(this.getAttribute('data-options')) : []);
-        this.setState('isMultiple', this.getAttribute('data-multiple'));
-        this.setState('isClearable', this.getAttribute('data-clearable'));
         const select = this.shadowRoot.querySelector('#selectbox');
         select.setAttribute('multiple', this.getState()?.isMultiple);
     }

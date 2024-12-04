@@ -16,7 +16,7 @@ export class Navbar extends Module {
      */
     constructor() {
         const config = {
-            name: `navbar-${Date.now()}`
+            name: `navbar`
         };
         super(config);
     }
@@ -40,8 +40,7 @@ export class Navbar extends Module {
             const cssContent = __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();  // Initialize the navbar's DOM elements
-            this.initializeModule();  // Initialize navbar-specific logic
+            this.initializeModule();
         } catch (error) {
             console.error("Error loading navbar content:", error);
         }

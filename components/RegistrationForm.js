@@ -16,7 +16,7 @@ export class RegistrationForm extends BaseForm {
      */
     constructor() {
         const config = {
-            name: `registrationForm-${Date.now()}`
+            name: `registrationForm`
         };
         super(config);
     }
@@ -46,9 +46,7 @@ export class RegistrationForm extends BaseForm {
             const cssContent = __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();  // Initialize form's DOM elements
-            super.initializeModule();  // Initialize form-specific logic
-            this.initializeModule();  // Initialize custom behaviors for registration form
+            this.initializeModule();
         } catch (error) {
             console.error('Error loading form content:', error);
         }

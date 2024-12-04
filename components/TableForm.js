@@ -15,7 +15,7 @@ export class TableForm extends BaseForm {
      */
     constructor() {
         const config = {
-            name: `tableForm-${Date.now()}`
+            name: `tableForm`
         };
         super(config);
     }

@@ -15,7 +15,7 @@ export class Footer extends Module {
      */
     constructor() {
         const config = {
-            name: `footer-${Date.now()}`
+            name: `footer`
         };
         super(config);
     }
@@ -37,8 +37,7 @@ export class Footer extends Module {
             const cssContent = __CSS__;
 
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();  // Initialize the module from DOM
-            this.initializeModule();    // Set up module-specific behaviors
+            this.initializeModule();
         } catch (error) {
             console.error("Error loading footer content:", error);
         }

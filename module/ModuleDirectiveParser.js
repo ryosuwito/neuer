@@ -625,7 +625,6 @@ export class ModuleDirectiveParser {
                 el.textContent = value ?? '';
                 return;
             }
-    
             renderer.call(this.module, value, el);
         });
     }

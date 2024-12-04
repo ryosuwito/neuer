@@ -17,7 +17,7 @@ export class BlogPost extends Module {
      */
     constructor(cfg = {}) {
         const config = {
-            name: `${cfg.name ?? 'blog-post-' + Date.now()}`
+            name: `${cfg.name ?? 'blog-post'}`
         };
         super(config);
     }
@@ -41,12 +41,10 @@ export class BlogPost extends Module {
      * @param {string|null} newValue New value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'data-title') {
-            this.setState('title', this.getAttribute('data-title'));
-        } else if (name === 'data-author' || name === 'data-date') {
-            this.setState('author_date', `${this.getAttribute('data-author')} - ${this.getAttribute('data-date')}`);
-        } else if (name === 'data-content') {
-            this.setState('content', this.getAttribute('data-content'));
+        if (name === 'data-author' || name === 'data-date') {
+            this.setState('author_date', `${this.dataset.author} - ${this.dataset.date}`);
+        } else {
+            super.attributeChangedCallback(name, oldValue, newValue);
         }
     }
 
@@ -64,7 +62,7 @@ export class BlogPost extends Module {
     async connectedCallback(htmlContent = null, cssContent = null, initialState = {}) {
         const defaultState = {
             title: '',
-            author_date: '',
+            author_date: `${this.dataset.author} - ${this.dataset.date}`,
             content: '',
         };
         const finalState = { ...defaultState, ...initialState };
@@ -75,8 +73,6 @@ export class BlogPost extends Module {
             cssContent = cssContent || defaultCssContent;
 
             await super.connectedCallback(htmlContent, cssContent, finalState);
-            super.initializeFromDOM();  // Initialize the module's DOM elements
-            this.initializeModule();  // Set up module-specific behavior
         } catch (error) {
             console.error("Error loading blog post content:", error);
         }
@@ -89,10 +85,6 @@ export class BlogPost extends Module {
      * @returns {void}
      */
     initializeModule() {
-        // Dynamically set the blog post content in the state
-        this.setState('title', this.getAttribute('data-title'));
-        this.setState('author_date', `${this.getAttribute('data-author')} - ${this.getAttribute('data-date')}`);
-        this.setState('content', this.getAttribute('data-content'));
     }
 
     // Control Methods

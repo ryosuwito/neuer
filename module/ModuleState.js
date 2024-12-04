@@ -23,9 +23,6 @@ export class ModuleState {
      * @throws {Error} Throws an error if the property is not defined in the initial state.
      */
     setState(key, value) {
-        if (!Object.prototype.hasOwnProperty.call(this.#state, key)) {
-            throw new Error(`Cannot set undefined property: '${key}'. Define it first in the initial state.`);
-        }
         this.#state[key] = value; // Triggers reactive handler
     }
 

@@ -121,7 +121,7 @@ export class ModuleManager {
                 nestedChildren
             );
             parent.appendChild(childElement);
-            console.log(`Child module '${moduleName}' attached to parent with props:`, props);
+            // console.log(`Child module '${moduleName}' attached to parent with props:`, props);
         });
     }
 
@@ -150,7 +150,7 @@ export class ModuleManager {
             }, { once: true });
     
             target.appendChild(element);
-            console.log(`Module '${moduleName}' attached to target '#${targetId}' with props:`, props);
+            // console.log(`Module '${moduleName}' attached to target '#${targetId}' with props:`, props);
         });
     }
 

@@ -15,12 +15,22 @@
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.blog-post img {
+.blog-post .img-container {
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     width: 100%;
-    min-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0;
+    padding-top: 125%; /* Aspect ratio of 1:1.25 (100% * 1.25) */
+    position: relative;
+}
+
+.blog-post img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio without stretching */
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
 }
@@ -140,11 +150,16 @@
         transform: translateY(0); /* Slide to normal position */
     }
 }
-
 /* Image inside the overlay */
 .overlay img {
+    position: relative;
     width: 100%;
+    min-width: 100%;
     height: auto;
+    display: block;
+    margin: 0;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
     border-radius: 4px; /* Optional: Rounded corners for images */
 }
 

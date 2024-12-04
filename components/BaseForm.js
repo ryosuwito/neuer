@@ -16,7 +16,7 @@ export class BaseForm extends Module {
      */
     constructor(cfg) {
         const config = {
-            name: `${cfg.name ?? 'baseform-' + Date.now()}`
+            name: `${cfg.name ?? 'baseform'}`
         };
         super(config);
         this._action = '';
@@ -44,10 +44,10 @@ export class BaseForm extends Module {
         const finalState = { ...defaultState, ...initialState };
         try {
             await super.connectedCallback(htmlUri, cssUri, finalState);
-            super.initializeFromDOM();  // Initialize the module's DOM elements
         } catch (error) {
             console.error("Error BaseForm connectedCallback:", error);
         }
+        this.initializeModule()
     }
 
     /**
