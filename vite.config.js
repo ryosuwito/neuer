@@ -16,7 +16,7 @@ export default defineConfig({
             },
         },
         lib: {
-            entry: './index.js',
+            entry: './components/index.js',
             name: 'Neuer',
             formats: ['es', 'umd'],
             fileName: (format) => `neuer.${format}.js`,

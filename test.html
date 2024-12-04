@@ -165,7 +165,7 @@
             margin-bottom: 10px;
         }
     </style>
-    <script type="module" src='./dist/neuer.es.js'></script>
+    <script type="module" src='https://unpkg.com/neuer@0.0.5/dist/neuer.umd.js'></script>
     <script defer>
         document.addEventListener('DOMContentLoaded', async () => {
             // Override Hierarchy for Renderers and Handlers:
@@ -341,7 +341,9 @@
                 },
             ];
 
-
+            const { BlogPostWithImage } = window.NeuerComponents;
+            const { SelectDropdown } = window.NeuerComponents;
+            const { BlogPost } = window.NeuerComponents;
             // Define a new custom element by extending an existing one
             class BlogPostWithImageV2 extends BlogPostWithImage {
                 // Override the renderTextContent renderer for this specific class

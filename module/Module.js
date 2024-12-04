@@ -18,14 +18,17 @@ export class Module extends HTMLElement {
      * @param {Object} config - The configuration object for the module.
      * @param {string} config.name - The name of the module.
      */
-    constructor(config) {
+    constructor(config = null) {
+        if (!config || !config.name) {
+            throw new Error("Are you *seriously* trying to create a module without a name? This is not a circus, buddy.\
+                Pass a proper name, like this: `{ name: 'myModuleName' }`.");
+        }
         super();
         // Ensure Module is not instantiated directly
         if (new.target === Module) {
-            throw new Error("Module is abstract and cannot be instantiated directly.");
+            throw new Error("Nope. You can't instantiate the abstract 'Module' class directly. Try again.");
         }
-
-
+    
         this.name = `${config.name}- ${Date.now()}-${this.#generateRandomString(10)}`;
         this.state = new ModuleState({});
         this.attachShadow({ mode: 'open' });

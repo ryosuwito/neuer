@@ -1,8 +1,10 @@
 {
   "name": "neuer",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "HTMLElements with complication",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/neuer.umd.js",
+  "module": "dist/neuer.es.js",
   "scripts": {
     "build": "vite build && npx jsdoc -c jsdoc.config.json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,9 +15,14 @@
     "js",
     "library"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/neuer.es.js",
+      "require": "./dist/neuer.umd.js"
+    }
+  },
   "files": [
-    "dist",
-    "docs"
+    "dist"
   ],
   "author": "ryosuwito",
   "license": "MIT",

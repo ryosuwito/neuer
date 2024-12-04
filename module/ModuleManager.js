@@ -129,28 +129,34 @@ export class ModuleManager {
      * Attaches a module to a target DOM element.
      * Supports nested child modules and can initialize custom functions in props.
      *
-     * @param {string} targetId - The ID of the target DOM element where the module will be attached.
+     * @param {string|HTMLElement} targetIdOrElement - The target DOM element or its ID where the module will be attached.
      * @param {string} moduleName - The name of the module to attach.
      * @param {Object} props - Props to initialize the module.
      * @param {Array} [children] - Nested child modules to attach to this module.
      * @throws {Error} Throws an error if the target DOM element is not found.
      */
-    async attachModule(targetId, moduleName, props = {}, children = []) {
+    async attachModule(targetIdOrElement, moduleName, props = {}, children = []) {
         return new Promise((resolve, reject) => {
-            const target = document.querySelector('#' + targetId);
+            // Check if target is string or already an element
+            const target = typeof targetIdOrElement === 'string'
+                ? document.querySelector(`#${targetIdOrElement}`)
+                : targetIdOrElement;
+
             if (!target) {
-                reject(new Error(`Target element with ID '${targetId}' not found.`));
+                reject(new Error(`Target element with ID '${targetIdOrElement}' not found.`));
                 return;
             }
+
             const element = this.createModuleElement(moduleName, props, children);
+
+            // Listen for the 'moduleReady' event
             element.addEventListener('moduleReady', () => {
                 const moduleKey = element.getAttribute('data-key');
                 const moduleInstance = this.getModule(moduleKey);
                 resolve(moduleInstance);
             }, { once: true });
-    
+
             target.appendChild(element);
-            // console.log(`Module '${moduleName}' attached to target '#${targetId}' with props:`, props);
         });
     }
 
