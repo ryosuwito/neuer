@@ -1,14 +1,23 @@
 # Neuer – The Framework That Assembles the Web
 
-### **THE FUTURE DOESN’T ASK FOR PERMISSION, BRO. IT JUST HAPPENS.**
-Alright, listen up: Neuer isn’t just a framework—it’s a statement. It’s the thing you didn’t know you were waiting for, because honestly, you’ve been lied to. If you think React, Vue, or Angular are "cutting-edge," it’s time to wake up. You’ve been sold the illusion that these bloated, over-engineered excuses for frameworks are somehow "best practice." They’re not. They’re anchors—dragging you into the abyss of complexity.
 
-Neuer is the **anti-framework** framework, and it’s here to save you from framework hell.
+### **"BEST PRACTICES"? PLEASE. MORE LIKE "BEST EXCUSES."**
+
+Let’s not sugarcoat it: the current state of frontend development is a bloated dumpster fire, and you're just another coder fanning the flames. You've been spoon-fed lies about how "innovative" React, Vue, and Angular are—when in reality, they're just the same old concepts, duct-taped together with buzzwords like "virtual DOM" and "component lifecycle."
+
+**It’s time to wake up.**  
+**It’s time for Neuer.**
+
+We’re not here to hold your hand. Neuer doesn’t have a 100-page “getting started” guide because you don’t need one. It’s not another shiny Goliath telling you how to do your job. **It’s David with a slingshot**, here to remind you that sometimes all it takes to knock a giant down is a simple, beautifully executed idea.
 
 ---
 
-### **ARE YOU READY TO WAKE UP, OR DO YOU WANT TO KEEP CRAWLING IN THE DARK?**
-You want to create a **blog post**? Boom. Clean. Fast. Beautiful. And let’s show you just how stupidly simple it is:
+### **ARE YOU STILL WRITING CODE, OR ARE YOU JUST ASSEMBLING CHAOS?**
+
+You’ve been building “modern” web apps, but are they really modern?  
+**Neuer’s here to tell you they’re not.**
+
+Want to make a blog post? Sure, let’s do it **without** the 500 lines of boilerplate and 47 npm packages:
 
 ```html
 <article class="blog-post">
@@ -36,50 +45,46 @@ You want to create a **blog post**? Boom. Clean. Fast. Beautiful. And let’s sh
 </article>
 ```
 
-Yes, **that’s it**. It’s that simple. No fifty-billion hooks. No magic incantations. No need for 18 "use" functions to get this to work. Just **Neuer**, giving you the power to **build** things, not choke on over-engineered nonsense.
+**That’s it.** No `useState`. No `useEffect`. No "advanced patterns" designed to break your brain and your spirit. Just HTML that works. Neuer sees the Rube Goldberg machine your app has become, and it says, **"Let’s strip this down to what actually matters."**
 
 ---
 
-### **HOW DOES NEUER DO IT? LIKE A BOSS.**
+### **NEUER DOESN’T FOLLOW RULES. IT WRITES THEM.**
 
-You’re probably sitting there thinking, “Yeah, but how does this magic work?” So I’m gonna spell it out for you in words you can understand. **Neuer** handles everything. **Everything**. State, events, rendering—**it’s automatic**. No framework babysitting, no thousand-step tutorials. It just works.
-
-- Modular Magic: Build less. Assemble more.
-- Infinite Overrides: Class? Instance? Global? You’re the boss.
-- Dynamic Assembly: No rebuilds. No redeploys. It’s all live.
-- Declarative Simplicity: Write HTML, let Neuer do the heavy lifting.
-- Hot-Swappable Modules: Drop them in. Take them out. No drama.
-- Global, Agnostic Power: Works anywhere. Plays nice with anything.
-
-When you build with Neuer, you’re not just writing code—you’re **orchestrating** greatness. You're the conductor of your own web symphony. No framework is holding your hand. Neuer is not just a tool—it’s a **mindset**.
+Here’s how Neuer rolls:  
+- **State? Managed.**  
+- **Events? Handled.**  
+- **Rendering? Automatic.**  
+No need for “hooks,” “context providers,” or any of that nonsense. Neuer makes the magic happen while you’re still Googling how to fix your component tree.
 
 ---
 
-### **THINK YOU’VE GOT A HANDLE ON THE “BEST PRACTICES”? THINK AGAIN.**
+### **YOU’RE NOT READY FOR THIS LEVEL OF FREEDOM.**
 
-“Best practices”? More like “least-risky practices for cowards who don’t know how to innovate.” If you think following 800 pages of “best practices” is the way forward, **stop reading this** and go back to being a framework drone. **Neuer doesn’t follow rules**. Neuer **breaks them**. 
+Still not convinced? Here’s how Neuer makes your precious “frameworks” look like the over-engineered disasters they are.
 
-Here’s the deal: you want to build a blog post? Go ahead. 
+Want to add an image to a blog post? Check this out:
 
 ```javascript
+import { BlogPost } from './BlogPost.js';
+
+/**
+ * BlogPostWithImage class extends the BlogPost class to include an image in the blog post.
+ * It provides additional functionality for rendering the image and showing a full-screen
+ * overlay when the image is clicked.
+ * 
+ * @extends BlogPost
+ */
 export class BlogPostWithImage extends BlogPost {
     constructor() {
         const config = {
-            name: `blog-post-with-image-${Date.now()}`
+            name: `blog-post-with-image`
         };
         super(config);
     }
 
     static get observedAttributes() {
         return [...super.observedAttributes, 'data-image'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'data-image') {
-            this.image = newValue;
-        } else {
-            super.attributeChangedCallback(name, oldValue, newValue);
-        }
     }
 
     async connectedCallback() {
@@ -89,9 +94,8 @@ export class BlogPostWithImage extends BlogPost {
         try {
             const htmlContent = __HTML__;
             const cssContent = __CSS__;
+
             await super.connectedCallback(htmlContent, cssContent, initialState);
-            super.initializeFromDOM();
-            super.initializeModule();
             this.initializeModule();
         } catch (error) {
             console.error("Error loading blog post with image content:", error);
@@ -99,10 +103,6 @@ export class BlogPostWithImage extends BlogPost {
     }
 
     initializeModule() {
-        this.state.setState('title', this.getAttribute('data-title'));
-        this.state.setState('author_date', `${this.getAttribute('data-author')} - ${this.getAttribute('data-date')}`);
-        this.state.setState('content', this.getAttribute('data-content'));
-        this.state.setState('image', this.getAttribute('data-image'));
     }
 
     renderImage(value, element) {
@@ -122,17 +122,18 @@ export class BlogPostWithImage extends BlogPost {
         overlay.style.display = 'none';
     };
 }
+
+customElements.define('blog-post-with-image', BlogPostWithImage);
 ```
 
-There it is. **One class**, one method, and boom. **Done.** No fluff. No “advanced patterns.” Just the cleanest, most efficient way to get things **done**. Not 15 layers of indirection and brain-melting patterns. **Just simple, actionable code.**
+**One class. One method. Infinite possibilities.**  
+No “advanced architecture discussions.” No debates over whether to use Redux or Context. Just **get it done.**
 
 ---
 
-### **“BEST PRACTICES” FOR WHAT?**
+### **“BUT WHAT ABOUT STATE MANAGEMENT?”**
 
-You know what’s hilarious? People are out there worshipping “best practices” while creating more work for themselves. **Best practices** are just someone else’s rules for how they built their framework 12 years ago. Neuer doesn’t care about them. Neuer **rewrites** the rules.
-
-Check this out:
+Oh, you mean the thing that other frameworks make you rip your hair out over? Neuer handles state like a pro:
 
 ```javascript
 {
@@ -141,7 +142,7 @@ Check this out:
     props: {
         title: 'Lorem Ipsum Dolor Sit Amet',
         author: 'Kemong',
-        date: 'December 1 2024',
+        date: 'December 1, 2024',
         content: '<p>This is a <strong>lorem ipsum</strong> paragraph for the blog post content.</p>',
         image: 'https://picsum.photos/200',
         readMore: (event, element) => {
@@ -150,21 +151,17 @@ Check this out:
     },
 }
 
-const module = await moduleManager.attachModule(targetId, moduleName, props, children);
+const module = await moduleManager.attachModule(targetId, moduleName, props);
 console.log(`Module ${module.name} initialized with state:`, module?.getState());
 ```
 
-No state management nightmare. No life cycle horrors. Just **state**, **state**, and more **state**—done in the most elegant, simple, and **manageable** way possible.
+No reducers. No sagas. No headaches. Just **state, simplified.**
 
 ---
 
-### **OVERRIDES? YEAH, YOU CAN DO THAT. IN FACT, WE ENCOURAGE IT.**
+### **YOU DON’T ADAPT TO NEUER. NEUER ADAPTS TO YOU.**
 
-Still think this is some framework that tells you how to write your code? Think again. Neuer **loves** to be **broken**. You want to override a module? **Do it.** You want to modify things on a global level? **Go wild.** You wanna take control and bend Neuer to your will? **We support that too.**
-
-##### **INSTANCE-LEVEL OVERRIDES (THE GOD MODE OF CODE)**
-
-You want to control just one instance of a module? Of course you do. **Neuer’s got you covered.**
+Want to tweak a specific instance? Do it:
 
 ```javascript
 const module = await moduleManager.attachModule("blog-posts-container", "blog-post-with-image", {
@@ -176,181 +173,135 @@ const module = await moduleManager.attachModule("blog-posts-container", "blog-po
 });
 ```
 
-You just took control like a **boss**. Let the framework live in your world.
-
-##### **CLASS-LEVEL OVERRIDES: DO IT ON A GRAND SCALE**
-
-Want to change everything for **all** instances of a module? Go ahead and subclass the hell out of it. **Neuer doesn’t care.**
-
-```javascript
-class BlogPostWithImageV2 extends BlogPostWithImage {
-    renderTextContent(value, element) {
-        element.textContent = `Class-Level Override: ${value}`;
-    }
-}
-```
-
-BOOM. You’re the **undisputed ruler** of your code. No rules, no limits. Just **freedom**.
-
-##### **GLOBAL OVERRIDES: LET IT ALL FLOW**
-
-Want to change everything everywhere? Sure. Go for it. **Neuer’s global overrides** let you be the **ultimate overlord** of your application.
+Want to rewrite everything? Go global:
 
 ```javascript
 moduleManager.registerRenderer("renderTextContent", (value, element) => {
-    element.textContent = `Global Overridden: ${value}`;
+    element.textContent = `Global Override: ${value}`;
 });
 
 moduleManager.injectGlobalRenderer(BlogPostWithImage, ['renderTextContent']);
 ```
 
-Done. You’ve just taken the **blue pill** and hacked reality.
-
-##### **DEFAULT**
-
-Neuer even has defaults, but you can break those too. You’re always in control.
-Okay, let’s say you’re the type who’s into **simplicity**, who just wants things to work without thinking too hard. Well, guess what? **Neuer’s got you covered.** You don’t have to drown in a sea of JavaScript just to get something to display. **Declarative usage** to the rescue! 
-
-```html
-<div id="blog-posts-container">
-    <blog-post-with-image 
-        data-title="Declarative Blog Post" 
-        data-content="<p>This blog post is defined declaratively.</p>" 
-        data-image="path/to/image.png">
-    </blog-post-with-image>
-</div>
-```
-
-That’s it. The module’s ready to go. No JS? No problem. Just **write HTML**, and Neuer does the rest. It's like your **personal dev assistant**—only it’s not slow and it doesn’t need lunch breaks.
+Neuer doesn’t just let you customize—it **dares** you to.
 
 ---
 
-### **ARE YOU READY TO RULE YOUR CODE?**
-
-Are you seriously gonna keep playing the same tired game of prop-passing, component obsession, and framework slavery? **Step up. Break free.** Neuer is here to **redefine** how you build.
-
-
-##### **INSTALLATION**
-
-Like, obviously, you’ve figured this part out by now. **Right?**
+### **INSTALLATION: AS EASY AS WE ARE BRILLIANT.**
 
 ```bash
 npm install neuer
 ```
 
+---
 
-##### **USAGE**
+### **USAGE: EVEN YOUR DOG COULD DO THIS.**
 
-I’m not here to waste your time with fluff. You know how to use it. Here's the deal:
-
-```javascript
+```html
 <script type="module" src='./dist/neuer.es.js'></script>
 <script defer>
     document.addEventListener('DOMContentLoaded', async () => {
-
-        // moduleManager available globally when you use the embedded style
         moduleManager.attachModule('my-container', 'my-module', {
             prop1: 'value1',
             prop2: 'value2',
-            // more props
         });
     });
 </script>
-
 ```
+
+Done. You’re welcome.
 
 Neuer’s here. It’s about time you figured out what that means. **Now get out there and build something that actually works.**
 
 ---
 
-### **QUESTIONS? PLEASE, WE'RE BUSY BEING AWESOME.**  
-If you’ve got questions about Neuer, take a deep breath and **read the README again.** Seriously, we’ve covered it all.  
 
-Still stuck? Okay, fine:  
-- Open an issue, but keep it **polite**. Remember, you’re talking to the **framework that assembles the web.**  
-- If your question starts with “Can Neuer do...” the answer is probably **yes**, so just try it first.  
+### **QUESTIONS? WE'RE TOO BUSY REDEFINING EXCELLENCE.**
+Got questions about Neuer? Take a breath, hit pause on your doubt, and **read the README again.** We've crafted it to answer even those questions you haven't thought of yet.  
 
----
-
-### **ISSUES: NOT OUR PROBLEM, BUT FINE.**  
-If you find a bug (unlikely, but sure), you can file an issue. But let’s set some ground rules:  
-- Don’t open an issue unless you’re **100% sure it’s not your code**. We’re not here to debug your spaghetti.  
-- If it’s a legit bug, describe it well. No vague “it doesn’t work” nonsense—we’re not mind readers.  
-
-And remember, every issue slows us down from making Neuer even cooler. So... think twice, maybe?  
+Still puzzled? Fine:
+- Open an issue, but keep it **polite**. You're not just talking to a framework; you're addressing the future of web development.
+- Wondering, “Can Neuer do...?” Trust us, the answer is a resounding **yes**—just give it a whirl before you ask.
 
 ---
 
-### **STAY IN TOUCH: BUT DON’T BE CLINGY.**  
-Want to stay updated on Neuer’s greatness?  
-No, we don’t have a newsletter. **Neuer doesn’t do spam.**  
+### **ISSUES: YOUR MISTAKES, NOT OURS.**
+Found a bug? That’s a bold claim. Let’s make some things crystal clear:
+- Don’t open an issue unless you’re absolutely, positively, **100% sure it’s not just your code** misbehaving. We’re not here to sift through your code mess.
+- Got a real issue? Describe it like you're talking to someone who’s not a mind reader (which we're not, despite the rumors).
+
+Remember, every minute we spend fixing your “bugs” is a minute we're not making Neuer mind-blowingly awesome. So, think before you click.
 
 ---
 
-### **CONTRIBUTION: BECAUSE YOU CAN’T RESIST.**  
-Feeling inspired? Great! We **welcome contributions**, but only if:  
-1. Your code is **cleaner than your desk** (low bar, we know).  
-2. You bring fresh ideas, not just “can you make it work like [insert legacy framework]?”  
-3. You’re ready to handle feedback like a champ, because we don’t sugarcoat things.  
-
-Fork it. PR it. **Blow our minds.**  
+### **STAY IN TOUCH: KEEP IT COOL, DON'T CLING.**
+Want to stay in the loop with Neuer’s march towards web domination?
+- Sorry, no newsletters here. **Neuer doesn’t spam; it innovates.**
 
 ---
 
-### **SPONSORS: SHOUTOUT TO MY MOM.**  
-Neuer is powered by:  
-- **Our brains**, fueled by caffeine and sarcasm.  
-- **Our moms**, who still think we “do something with computers.”  
+### **CONTRIBUTION: NOT FOR THE FAINT-HEARTED.**
+Feeling a surge of inspiration? We welcome contributions that match our brilliance:
+1. Your code better be **cleaner than a surgeon’s scalpel**.
+2. Bring fresh, groundbreaking ideas, not recycled tweaks. We're not here to retrofit old cars; we're crafting rockets.
+3. Ready for brutally honest feedback? Great, because we’re here to forge excellence, not coddle mediocrity.
 
-Want to sponsor us? Sure!  
-- Send snacks, coffee, or a heartfelt thank-you note.  
-- Money’s cool too, but honestly, we’re not in it for the cash—we’re here to **change the web**.  
+Fork it, clone it, and push it to the limits. **Impress or go home.**
 
 ---
 
-### **LICENSE: THE "NEUER KNOWS IT’S BETTER" LICENSE**  
+### **SPONSORS: CHEERS TO THE BRAVE.**
+Powering Neuer:
+- **Our brilliant minds**, fueled by unrelenting ambition and possibly too much coffee.
+- **Our moms**, who still think we’re just “playing on our computers.”
+
+Want to sponsor this revolution?
+- Send caffeine, inspiring notes, or just pure admiration our way.
+- Money? Sure, it's accepted, but know this—we're here to make history, not just profits.
+
+---
+
+## **LICENSE: THE NEUER-DO-WHAT-YOU-WANT LICENSE**
 #### **COPYRIGHT 2024, THE NEUER TEAM**
 
----
+**PERMISSION GRANTED (LIKE, YEAH, WHATEVER)**
 
-#### **PERMISSION GRANTED (LIKE, WHATEVER, DUDE)**  
-Permission is granted, free of charge, to any person obtaining a copy of this software (the “Software”), to do **pretty much whatever you want**:  
-- Run it.  
-- Modify it.  
-- Build something ridiculous with it (seriously, go wild).  
-- Rename it “Framework McAwesome” and take all the credit. **But don’t lie to yourself—we know who’s doing the heavy lifting here.**  
+Do whatever your genius mind decides:
+- Run it.
+- Modify it.
+- Create the unthinkable with it.
+- Call it “SuperCoolFramework” if you like—just know deep down, it’s still our Neuer running the show.
 
-**Neuer doesn’t care.** Just don’t do anything illegal, evil, or, like, catastrophically dumb. Deal? Cool.  
-
----
-
-#### **THE COMMANDMENTS (BECAUSE NEUER IS A RELIGION NOW)**  
-
-1. **Thou Shalt Acknowledge Neuer’s Greatness**  
-   - Publicly admit that Neuer made your life easier.  
-     - Slack? Tweet? Write it in the sky with a plane—whatever works for you.  
-   - If you’re ditching React, Vue, or Angular, let your team know you’ve upgraded to **the future**.  
-
-2. **Thou Shalt Not Screw It Up**  
-   - If you modify Neuer, **keep it clean**. Don’t turn it into another unmaintainable horror story.  
-   - If you break it, don’t come crying. You’re not five, and this isn’t daycare.  
-
-3. **Thou Shalt Flaunt Thy Awesomeness**  
-   - If you build something cool, **brag about it**. Share it everywhere, even that group chat you muted two years ago.  
-   - Didn’t build something cool? That’s on **you**, pal. Neuer gave you greatness, and you squandered it. Shame.
+**Neuer doesn’t sweat the small stuff.** Just steer clear of the illegal, the unethical, or the outright stupid.
 
 ---
 
-#### **DISCLAIMERS (READ THIS IF YOU HAVE A LAWYER)**  
+### **THE NEUER COMMANDMENTS**
+1. **Thou Shalt Recognize Neuer's Superiority**
+   - Shout it from rooftops, tweet it into the void—let the world know Neuer simplified your life.
+   - Upgraded from React or Angular? Tell your team you’ve seen the light.
 
-1. **Neuer takes no responsibility if you**:  
-   - Realize your old framework was garbage and start questioning your life choices.  
-   - Blow everyone’s minds at work and get promoted too quickly to handle the pressure.  
-   - Lose hours admiring how smooth your app runs now. (Hey, productivity’s your problem, not ours.)  
+2. **Thou Shalt Not Botch It**
+   - Modify Neuer? Keep it classy and clean. No junk code.
+   - Break something? Remember, Neuer’s not your mom. We don’t do tears.
 
-2. **Neuer won’t help if you**:  
-   - Use it to build something world-ending. If you make a doomsday app, **that’s on you, Dr. Evil.**  
-   - Complain that “it doesn’t work like my old framework.” **Buddy, we’re not React. We’re better. Adapt.**  
+3. **Thou Shalt Boast Loudly**
+   - Created something awesome? Declare your genius far and wide.
+   - Fall short? That’s on you. Neuer handed you the tools; you just had to wield them.
 
-3. **THE SOFTWARE IS PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.**  
-   - If it breaks, it’s either your fault or your karma. Either way, figure it out.
+---
+
+### **DISCLAIMERS FOR THE WISE**
+1. **Neuer's Not To Blame If:**
+   - You suddenly realize your old tools were toys.
+   - Your career skyrockets to uncomfortable heights.
+   - You lose time marveling at how brilliantly your project runs.
+
+2. **Don’t Come Crying If:**
+   - You concoct a world-ending algorithm. Seriously, keep that ambition positive.
+   - You whine about Neuer not being like your ex-framework. We're not them. We’re better.
+
+3. **NO WARRANTIES, EXPRESS OR IMPLIED.**
+   - It breaks? Look in the mirror. That’s on you, champ.
+
+Embrace Neuer—start building the future, not just software.
