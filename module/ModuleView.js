@@ -21,7 +21,23 @@ export class ModuleView {
             if (renderFn) {
                 renderFn(value, element, key);
             } else {
-                element.textContent = value ?? ''; // Fallback to textContent if no renderFn is provided
+                if (element instanceof HTMLInputElement) {
+                    if (element.type === 'checkbox') {
+                        element.checked = Boolean(value);
+                    } else if (element.type === 'radio') {
+                        element.checked = (element.value === value);
+                    } else {
+                        element.value = value ?? '';
+                    }
+                } else if (element instanceof HTMLTextAreaElement) {
+                    element.value = value ?? '';
+                } else if (element instanceof HTMLSelectElement) {
+                    element.value = value ?? '';
+                } else if (element.isContentEditable) {
+                    element.innerText = value ?? '';
+                } else {
+                    element.textContent = value ?? '';
+                }
             }
         });
     }
@@ -95,7 +111,8 @@ export class ModuleView {
         if (!(element instanceof HTMLElement)) {
             throw new Error("renderTextContent requires a valid HTML element.");
         }
-        element.textContent = value;
+        value = value?.item || value;
+        element.textContent = value || '';
     }
 
     /**

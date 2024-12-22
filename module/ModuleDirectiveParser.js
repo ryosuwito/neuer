@@ -555,9 +555,15 @@ export class ModuleDirectiveParser {
                         throw new Error(`The handler ${fnName} must be asynchronous for @ operator.`);
                     }
                     // If async, resolve the result and dispatch the action
-                    handler(event, el, state).then(res => {
-                        const [dispatchEvent] = actionDetails.split(':');
+                    handler.bind(this.module)(event, el, state).then(res => {
+                        const actionParts = actionDetails.split(':');
+                        if (actionParts.length !== 2) {
+                            console.warn(`Async ${fnName} finish, no event broadcasted`);
+                            return;
+                        }
+                        const dispatchEvent = actionParts[1]
                         this.module.control.dispatch(dispatchEvent, { result: res });
+                        console.warn(`Async ${fnName} finish, ${dispatchEvent} event broadcasted`);
                     }).catch(err => {
                         console.error('Async function failed:', err);
                     });
@@ -644,7 +650,7 @@ export class ModuleDirectiveParser {
      * 
      * @example
      * // Example usage of directive in HTML:
-     * // <input s-value="updateValue&processInput" />
+     * // <input s-value=blur|updateValue&processInput" />
      * // This binds the input element's value to the state named `value` and processes it through `updateValue` 
      * // and `processInput` handlers, with the `&` operator used to gracefully stop if any handler returns an invalid value.
      * 
@@ -659,16 +665,16 @@ export class ModuleDirectiveParser {
      * 
      * @example
      * // Example of directive with `&` operator:
-     * // <input s-value="validateInput&sanitizeValue" />
+     * // <input s-value="input|validateInput&sanitizeValue" />
      * // In this case, if `validateInput` returns an invalid value (null, undefined, or empty), 
      * // the pipeline will stop gracefully and the state won't be updated.
      * 
      * @example
      * // Example of directive with `#` operator:
-     * // <input s-value="validateInput#processValue" />
+     * // <input s-value="change|validateInput#processValue" />
      * // If `validateInput` returns an invalid value, the error will be thrown, and the state will not be updated.
      */
-    handleStateDirective(element, stateName, eventName) {
+    handleStateDirective(element, stateName, eventName='change') {
         // Regular expression to extract handler names and operators from the event name
         const handlerRegex = /([a-zA-Z0-9]+)([&|#]*)/g;
 
@@ -714,7 +720,7 @@ export class ModuleDirectiveParser {
             }
 
             // Update the state with the final value
-            state[stateName] = value;
+            this.module.setState(stateName, value);
         });
     }
 
@@ -800,7 +806,7 @@ export class ModuleDirectiveParser {
             }
 
             // Update the state with the final value
-            state[stateName] = value;
+            this.module.setState('stateName', value);
         });
     }
 }

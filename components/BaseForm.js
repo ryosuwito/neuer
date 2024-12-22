@@ -19,12 +19,6 @@ export class BaseForm extends Module {
             name: `${cfg.name ?? 'baseform'}`
         };
         super(config);
-        this._action = '';
-        this._disableSubmit = false;
-        this._form = null;
-        this._isHandlingSubmit = false;
-        this._method = 'POST';
-        this._module = null;
     }
 
     /**
@@ -38,12 +32,14 @@ export class BaseForm extends Module {
      * @returns {Promise<void>} Resolves once the form is successfully connected.
      * @throws {Error} If the form HTML or CSS fails to load.
      */
-    async connectedCallback(htmlUri, cssUri, initialState = {}) {
-        const defaultState = {};
+    async connectedCallback(htmlContent, cssContent, initialState = {}) {
+        const defaultState = {
+            isHandlingSubmit:false
+        };
         // Merge default state with user-provided overrides
         const finalState = { ...defaultState, ...initialState };
         try {
-            await super.connectedCallback(htmlUri, cssUri, finalState);
+            await super.connectedCallback(htmlContent, cssContent, finalState);
         } catch (error) {
             console.error("Error BaseForm connectedCallback:", error);
         }
@@ -69,9 +65,7 @@ export class BaseForm extends Module {
      * @param {string|null} newValue New value of the attribute.
      */
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'action') this._form?.setAttribute('action', newValue);
-        if (name === 'method') this._form?.setAttribute('method', newValue);
-        if (name === 'disable-submit') this._disableSubmit = newValue !== null;
+        this.setState(name, newValue)
     }
 
     /**
@@ -81,10 +75,10 @@ export class BaseForm extends Module {
      * @param {string} rootId ID of the form element within the shadow DOM.
      */
     initializeModule() {
-        const form = this.shadowRoot;
+        const form = this.shadowRoot.querySelector('form');
         // Configure form and store a reference
-        form.action = this._action;
-        form.method = this._method;
+        form.action = this.getState('action');
+        form.method = this.getState('method')
         this._form = form;
     }
 
@@ -103,18 +97,16 @@ export class BaseForm extends Module {
     };
 
     // Form submission logic
-    async submitForm() {
-        if (this._isHandlingSubmit) return; // Prevent multiple submissions
-        this._isHandlingSubmit = true;
+    async submitForm(event, el, state) {
+        if (this.getState('isHandlingSubmit')) return;
+        this.setState('isHandlingSubmit', true);
         try {
             const formData = this.getFormData();
             console.log('Form submitted with:', formData);
-
-            // Add async work here if needed (e.g., API calls)
         } catch (error) {
             console.error('Error during submission', error);
         } finally {
-            this._isHandlingSubmit = false;
+            this.setState('isHandlingSubmit', false);
         }
     };
 
@@ -130,7 +122,7 @@ export class BaseForm extends Module {
      */
     toggleSubmitButton() {
         const submitBtn = this.shadowRoot.querySelector('#submitBtn');
-        submitBtn.disabled = this._disableSubmit;
+        submitBtn.disabled = this.getState('disable-submit');
     }
 }
 

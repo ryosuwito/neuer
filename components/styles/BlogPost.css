@@ -62,22 +62,6 @@
     text-align: right;
 }
 
-.blog-post button {
-    padding: 10px 20px;
-    background-color: var(--secondary-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--background-color);
-    font-weight: 600;
-    font-style: italic;
-    font-size: 1.02rem;
-}
-
-.blog-post button:hover {
-    background-color: var(--secondary-hover-color);
-}
-
 /* Keyframes for animations */
 @keyframes fadeInSlideUp {
     0% {

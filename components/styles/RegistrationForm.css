@@ -56,3 +56,125 @@ button:hover {
 #loginLink:hover {
     text-decoration: underline;
 }
+
+/* Container for radio buttons */
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between radio buttons */
+    margin-bottom: 20px;
+}
+
+/* Styling for individual radio buttons and their labels */
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer; /* Make the label clickable */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    user-select: none; /* Disable text selection */
+}
+
+/* Style for the radio input element */
+.radio-input {
+    display: none; /* Hide the default radio button */
+}
+
+/* Custom radio button styling */
+.radio-label::before {
+    content: ''; /* Empty content for custom design */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* When the radio button is selected */
+.radio-input:checked + .radio-text::before {
+    background-color: #007bff; /* Blue background when selected */
+    border-color: #007bff;
+}
+
+/* Add the inner circle (dot) for selected state */
+.radio-input:checked + .radio-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+}
+
+/* Hover effect for radio labels */
+.radio-label:hover::before {
+    border-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styling for the text next to the radio button */
+.radio-text {
+    position: relative;
+    cursor: pointer; /* Make it clear the text is clickable */
+}
+
+/* Custom Styling for Select Dropdown */
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none; /* Remove default dropdown arrow for Safari */
+    -moz-appearance: none; /* Remove default dropdown arrow for Firefox */
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.custom-select:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a blue shadow on focus */
+}
+
+/* Style the custom dropdown arrow */
+.custom-select::after {
+    content: '▼'; /* Downward triangle */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #007bff;
+    pointer-events: none;
+}
+
+/* Wrap the select element in a container for relative positioning */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+/* Style the options */
+.custom-select option {
+    font-size: 16px;
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+}
+
+.custom-select option:hover {
+    background-color: #f0f8ff; /* Light blue background on hover */
+}

@@ -40,6 +40,9 @@ export class RegistrationForm extends BaseForm {
             products: [],
             user_count: 0,
             product_count: 0,
+            email_error: '',
+            username_error: '',
+            password_error: ''
         };
         try {
             const htmlContent = __HTML__;
@@ -58,6 +61,7 @@ export class RegistrationForm extends BaseForm {
      * @returns {void}
      */
     initializeModule() {
+        super.initializeModule()
         /**
          * Adds a new product to the product list.
          * 
@@ -165,9 +169,10 @@ export class RegistrationForm extends BaseForm {
             value = this.sanitizeEmail(value);
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailRegex.test(value)) {
-                console.warn('Invalid email format!');
+                this.setState('email_error', 'Invalid email format!')
                 return null;
             }
+            this.setState('email_error', '')
             return value; // Return sanitized and valid email
         };
 
@@ -190,9 +195,10 @@ export class RegistrationForm extends BaseForm {
         this.validateUsername = (value) => {
             value = this.sanitizeUsername(value);
             if (value.length < 5) {
-                console.warn('Username is too short! Minimum length is 5 characters.');
+                this.setState('username_error', 'Username is too short! Minimum length is 5 characters.')
                 return null;
             }
+            this.setState('username_error', '')
             return value; // Return sanitized and valid username
         };
 
@@ -204,22 +210,25 @@ export class RegistrationForm extends BaseForm {
          */
         this.validatePassword = (value) => {
             if (value.length < 8) {
-                console.warn('Password is too short! Minimum length is 8 characters.');
+                this.setState('password_error', 'Password is too short! Minimum length is 8 characters.');
                 return null;
             }
 
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
             if (!passwordRegex.test(value)) {
-                console.warn('Password must contain uppercase, lowercase, a number, and a special character.');
+                this.setState('password_error', 'Password must contain uppercase, lowercase, a number, and a special character.')
                 return null;
             }
-
-            return value; // Return valid password
+            this.setState('password_error', '')
+            return value;
         };
 
         this.toggleSubmitButton();
 
         this.control.on('registrationAttempt', () => {
+            this.setState('email', '');
+            this.setState('username', '');
+            this.setState('password', '');
             console.log('Registration attempt successful');
         });
     }

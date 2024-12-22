@@ -1,5 +1,26 @@
 <form id="registrationForm">
     <h1 v-message="renderTextContent"></h1>
+    <div class="radio-group">
+        <label class="radio-label">
+            <input s-gender="change" class="radio-input" type="radio" name="gender" value="male" id="maleRadio"> 
+            <span class="radio-text">Male</span>
+        </label>
+
+        <label class="radio-label">
+            <input s-gender="change" class="radio-input" type="radio" name="gender" value="female" id="femaleRadio"> 
+            <span class="radio-text">Female</span>
+        </label>
+
+        <label class="radio-label">
+            <input s-gender="change" class="radio-input" type="radio" name="gender" value="other" id="otherRadio"> 
+            <span class="radio-text">Other</span>
+        </label>
+    </div>
+    <select class="custom-select" s-occupation="change">
+        <option value="student">Student</option>
+        <option value="employee">Employee</option>
+        <option value="other">Other</option>
+    </select>
     <button c-click="addUser:users" type="button">Add New users</button>
     <button c-click="addProduct:products" type="button">Add New products</button>
     <p>Total User Count: <span v-user_count="renderTextContent" id="userCount"></span></p>
@@ -8,41 +29,43 @@
         <template l-users>
             <p f-visible="isVisible">
                 <span v-name="renderItem"></span>
-                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;" 
-                        c-click="removeUser:users>itemRemoved" type="button">x</button>
+                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;"
+                    c-click="removeUser:users>itemRemoved" type="button">x</button>
             </p>
         </template>
     </div>
-    <hr/>
+    <hr />
     <div>
         <template l-products>
             <p f-visible="isVisible">
                 <span v-name="renderItem"></span>
-                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;" 
-                        c-click="removeProduct:products>itemRemoved" type="button">x</button>
+                <button style="border-radius:50%; padding:5px; width: 29px; height: 29px;"
+                    c-click="removeProduct:products>itemRemoved" type="button">x</button>
             </p>
         </template>
     </div>
-    <div v-password="renderTextContent" id="formpassword"></div>
-    
+
     <!-- Email Input -->
     <input s-email="change|sanitizeEmail&validateEmail" type="text" id="email" placeholder="Email">
-    
+    <small v-email_error></small>
     <!-- Username Input -->
     <input s-username="change|sanitizeUsername&validateUsername" type="text" id="username" placeholder="Username">
-    
+    <small v-username_error></small>
+
     <!-- Password Input -->
     <div style="position: relative;">
         <input s-password="change|validatePassword" type="password" id="password" placeholder="Password">
-        
+        <small v-password_error></small>
+
         <!-- Eye Icon to Toggle Password Visibility -->
-        <button c-click="togglePassword" type="button" id="togglePassword" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none;">
+        <button c-click="togglePassword" type="button" id="togglePassword"
+            style="position: absolute; right: 10px; top: 10px; background: transparent; border: none;">
             <span id="eyeIcon">👁️</span>
         </button>
     </div>
-    
-    <button c-click="validateForm@submitForm" type="button" id="submitBtn">Submit</button>
-    
+
+    <button c-click="validateForm@submitForm:registrationAttempt" type="button" id="submitBtn">Submit</button>
+
     <!-- Link to Login Page for Existing Users -->
     <p><a href="/login" id="loginLink">Already have an account? Login here</a></p>
 

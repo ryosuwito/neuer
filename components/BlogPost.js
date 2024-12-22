@@ -60,9 +60,10 @@ export class BlogPost extends Module {
      * @throws {Error} If the blog post HTML or CSS fails to load.
      */
     async connectedCallback(htmlContent = null, cssContent = null, initialState = {}) {
+        this.pullStyle = true;
         const defaultState = {
             title: '',
-            author_date: `${this.dataset.author} - ${this.dataset.date}`,
+            author_date: `${this.dataset.author||''} - ${this.dataset.date||''}`,
             content: '',
         };
         const finalState = { ...defaultState, ...initialState };

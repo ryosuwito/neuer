@@ -54,6 +54,7 @@ export class LoginForm extends BaseForm {
      * @returns {void}
      */
     initializeModule() {
+        super.initializeModule()
         /**
          * Handles the form submission by gathering the form data, performing basic validation,
          * and emitting a 'loginAttempt' event with the form data.

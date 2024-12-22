@@ -34,13 +34,6 @@
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
 }
-.blog-post img:hover{
-    width: 100%;
-    height: auto;
-    border-radius: 4px; /* Optional: Rounded corners for images */
-    transition: transform 0.3s ease-in-out;
-    transform: scale(1.025); /* Slight zoom effect when hovered */
-}
 .blog-post header{
     padding: 0 20px;
 }
@@ -72,21 +65,7 @@
     text-align: right;
 }
 
-.blog-post button {
-    padding: 10px 20px;
-    background-color: var(--secondary-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--background-color);
-    font-weight: 600;
-    font-style: italic;
-    font-size: 1.02rem;
-}
 
-.blog-post button:hover {
-    background-color: var(--secondary-hover-color);
-}
 /* Full-screen overlay styles */
 .overlay {
     position: fixed;
